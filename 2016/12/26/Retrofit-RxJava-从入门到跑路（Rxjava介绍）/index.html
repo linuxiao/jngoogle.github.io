@@ -96,7 +96,7 @@
 
 2016年也差不多要结束了，作为一个Android小白今年学到的东西回头来看发现还是太少了。给我印象最深的是 MVP设计模式、Retrofit以及RxJava。这篇文章就来讲一下Retrofit和RxJava。
 网上有很多这两者相关的资料但是结合起来的文章比较少，本着我们学习的">
-<meta property="og:updated_time" content="2016-12-29T01:57:22.354Z">
+<meta property="og:updated_time" content="2016-12-29T06:48:57.381Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Retrofit + RxJava 从入门到跑路（Rxjava介绍）">
 <meta name="twitter:description" content="本文较长建议在电脑上阅读(文中除 RxJava + Retrofit 结合运用部分，其余代码示例来自 扔物线 博客)
@@ -450,6 +450,9 @@
 <p>好的，啰嗦了这么多我为什么要介绍这个观察者模式呢？ 是因为我们Rxjava就是要处理异步问题的，异步一般来说那个不在主线程中的任务会比较耗时，为了防止ANR就会用到观察者模式。观察者不用时时刻刻去查看是否需要更新View了（如果那样好累的说）只要我关注了我需要关注的事件源（比如Button的点击事件）就可以在发生了特定事件的时候获得消息然后再更新View。</p>
 <ul>
 <li><p><strong>代码实现</strong>.</p>
+<p><strong>0 如何引入Rxjava</strong></p>
+<p>Example for Gradle:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// in your modules' build.gradle</span></div><div class="line">   <span class="comment">// Rxjava</span></div><div class="line">   compile <span class="string">'com.squareup.retrofit2:adapter-rxjava:2.0.2'</span></div><div class="line">   <span class="comment">// RXandroid</span></div><div class="line">   compile <span class="string">'io.reactivex:rxandroid:1.0.1'</span></div></pre></td></tr></table></figure>
 <p><strong>1 创建观察者（事件处理者）Observer</strong><br>观察者决定了当事件被触发了做出怎样的回应（在onNext 方法中处理）。  </p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">Observer&lt;String&gt; observer = <span class="keyword">new</span> Observer&lt;String&gt;() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        Log.d(tag, <span class="string">"Item: "</span> + s);</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>&#123;</div><div class="line">        Log.d(tag, <span class="string">"Completed!"</span>);</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</div><div class="line">        Log.d(tag, <span class="string">"Error!"</span>);</div><div class="line">    &#125;&#125;;</div></pre></td></tr></table></figure>
 <p>​</p>
