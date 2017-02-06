@@ -271,6 +271,168 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://jngoogle.github.io/2016/12/29/Retrofit-Rxjava-从入门到跑路（Retrofit）/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Jngoogle">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Jngoogle">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Jngoogle" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/29/Retrofit-Rxjava-从入门到跑路（Retrofit）/" itemprop="url">
+                  Retrofit + Rxjava 从入门到跑路（Retrofit介绍）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-29T14:53:19+08:00">
+                2016-12-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Retrofit介绍"><a href="#Retrofit介绍" class="headerlink" title="Retrofit介绍"></a>Retrofit介绍</h1><h3 id="Retrofit是什么"><a href="#Retrofit是什么" class="headerlink" title="Retrofit是什么"></a>Retrofit是什么</h3><p>简单的一句话是一个网络库用来处理一些网络上的数据传输的。</p>
+<blockquote>
+<p>Type-safe HTTP client for Android and Java by Square, Inc.</p>
+<p>适用于Android 和 Java 的类型安全的Http 客户端</p>
+</blockquote>
+<h3 id="Retrofit有什么特点"><a href="#Retrofit有什么特点" class="headerlink" title="Retrofit有什么特点"></a>Retrofit有什么特点</h3><p>为什么这一年很多人都在推荐Retrofit，它究竟相比于其他的网络库（Volley 或者说原生）好在哪里？</p>
+<h3 id="如何使用Retrofit"><a href="#如何使用Retrofit" class="headerlink" title="如何使用Retrofit"></a>如何使用Retrofit</h3><h4 id="一-添加依赖"><a href="#一-添加依赖" class="headerlink" title="一 添加依赖"></a>一 添加依赖</h4><p>Example for Gradle</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// retrofit</span></div><div class="line">compile <span class="string">'com.squareup.retrofit2:retrofit:2.0.2'</span></div><div class="line">compile <span class="string">'com.squareup.retrofit2:converter-gson:2.0.2'</span></div><div class="line"><span class="comment">// network interceptor</span></div><div class="line">compile <span class="string">'com.google.android.gms:play-services-appindexing:8.1.0'</span></div><div class="line">compile <span class="string">'com.squareup.okhttp3:logging-interceptor:3.1.2'</span></div></pre></td></tr></table></figure>
+<p>ps: 注意 converter-gson 是一个转换器，你还可以在以下转换器中选择（本文使用Gson作为例子）：</p>
+<ul>
+<li><a href="https://github.com/google/gson" target="_blank" rel="external">Gson</a>: <code>com.squareup.retrofit2:converter-gson</code> （google 官方支持）</li>
+<li><a href="http://wiki.fasterxml.com/JacksonHome" target="_blank" rel="external">Jackson</a>: <code>com.squareup.retrofit2:converter-jackson</code></li>
+<li><a href="https://github.com/square/moshi/" target="_blank" rel="external">Moshi</a>: <code>com.squareup.retrofit2:converter-moshi</code></li>
+<li><a href="https://developers.google.com/protocol-buffers/" target="_blank" rel="external">Protobuf</a>: <code>com.squareup.retrofit2:converter-protobuf</code></li>
+<li><a href="https://github.com/square/wire" target="_blank" rel="external">Wire</a>: <code>com.squareup.retrofit2:converter-wire</code></li>
+<li><a href="http://simple.sourceforge.net/" target="_blank" rel="external">Simple XML</a>: <code>com.squareup.retrofit2:converter-simplexml</code></li>
+<li>Scalars (primitives, boxed, and String): <code>com.squareup.retrofit2:converter-scalars</code></li>
+</ul>
+<p>此外，这里还添加了一个网络拦截器interceptor 目的是方便我们调试的时候查看服务器返回给我们的数据。</p>
+<h4 id="二-创建服务"><a href="#二-创建服务" class="headerlink" title="二 创建服务"></a>二 创建服务</h4><p>文中前面提到Retrofit 是一种接口的方式来提供服务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IMovieService</span> </span>&#123;</div><div class="line">    <span class="comment">// get top 250 movies</span></div><div class="line">    <span class="meta">@GET</span>(<span class="string">"top250"</span>)</div><div class="line">    Call&lt;ApiResult&lt;Subject&gt;&gt; getTopMovie(<span class="meta">@Query</span>(<span class="string">"start"</span>) <span class="keyword">int</span> start,</div><div class="line">                                         <span class="meta">@Query</span>(<span class="string">"count"</span>) <span class="keyword">int</span> count);</div></pre></td></tr></table></figure>
+<p>这里接上一篇<a href="https://jngoogle.github.io/2016/12/26/Retrofit-RxJava-%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E8%B7%91%E8%B7%AF%EF%BC%88Rxjava%E4%BB%8B%E7%BB%8D%EF%BC%89/">《 Retrofit + Rxjava 从入门到跑路（Rxjava介绍）》</a> 中的json结果，使用的是豆瓣电影的API <a href="https://developers.douban.com/wiki/?title=movie_v2#top250" target="_blank" rel="external">Top250 </a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="https://jngoogle.github.io/2016/12/26/Retrofit-RxJava-从入门到跑路（Rxjava介绍）/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -949,7 +1111,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1007,7 +1169,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
