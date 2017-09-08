@@ -281,6 +281,176 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://jngoogle.github.io/2017/09/08/使用Permissions-Dispatcher/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Jngoogle">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.jpg">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Jngoogle">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Jngoogle" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/09/08/使用Permissions-Dispatcher/" itemprop="url">
+                  使用Permissions Dispatcher
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-08T10:48:20+08:00">
+                2017-09-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这里是原项目地址 <a href="https://github.com/hotchemi/PermissionsDispatcher" target="_blank" rel="external">Permissions Dispatcher github link</a></p>
+<h1 id="引入库"><a href="#引入库" class="headerlink" title="引入库"></a>引入库</h1><h3 id="1-添加-maven-支持"><a href="#1-添加-maven-支持" class="headerlink" title="1 添加 maven 支持"></a>1 添加 maven 支持</h3><p>在你的 Project 这一层级下添加如下代码，提供 maven 支持。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">allprojects &#123;</div><div class="line">    repositories &#123;</div><div class="line">        google()</div><div class="line">        jcenter()</div><div class="line"><span class="comment">//        TODO 「 how to add PermissionsDispactcher 」 1 - add maven repo dependence</span></div><div class="line">        maven &#123; url <span class="string">'http://oss.jfrog.org/artifactory/oss-snapshot-local/'</span> &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-添加项目依赖"><a href="#2-添加项目依赖" class="headerlink" title="2 添加项目依赖"></a>2 添加项目依赖</h3><p>在你的 Module 这一层级中添加如下代码，提供项目依赖：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    <span class="function">implementation <span class="title">fileTree</span><span class="params">(dir: <span class="string">'libs'</span>, include: [<span class="string">'*.jar'</span>])</span></span></div><div class="line">    implementation 'com.android.support:appcompat-v7:26.0.0'</div><div class="line">    </div><div class="line"><span class="comment">//  TODO 「 how to add PermissionsDispactcher 」 2 - add dependece in module build.gradle</span></div><div class="line">    <span class="title">compile</span><span class="params">(<span class="string">"com.github.hotchemi:permissionsdispatcher:2.4.0"</span>)</span> &#123;</div><div class="line"><span class="comment">//      if you don't use android.app.Fragment you can exclude support for them</span></div><div class="line">        exclude <span class="keyword">module</span>: <span class="string">"support-v13"</span></div><div class="line">    &#125;</div><div class="line">    annotationProcessor <span class="string">"com.github.hotchemi:permissionsdispatcher-processor:2.4.0"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> <code>com.github.hotchemi:permissionsdispatcher:${latest.version}</code> 若想要使用最新版本参考文章开头的原项目。</p>
+<p><br></p>
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><blockquote>
+<ul>
+<li>希望你已经熟悉如何使用官方的方式来实现权限管理，若需要学习你可以参考官网教程 <a href="https://developer.android.com/about/versions/marshmallow/android-6.0-changes.html?hl=zh-cn" target="_blank" rel="external">Link</a></li>
+<li>Permissions Dispatcher 采用注解的方式来简化权限管理</li>
+<li>除此之外也建议你去了解一下其他的库</li>
+</ul>
+</blockquote>
+<h3 id="1-为你需要管理权限的-Activity-或-Fragment-添加-RuntimePermissions"><a href="#1-为你需要管理权限的-Activity-或-Fragment-添加-RuntimePermissions" class="headerlink" title="1 为你需要管理权限的 Activity 或 Fragment 添加 @RuntimePermissions"></a>1 为你需要管理权限的 Activity 或 Fragment 添加 <code>@RuntimePermissions</code></h3><p><code>@RuntimePermissions</code> 这个注解是必须的，此外还有一个申请权限的注解方法也是必须的 <code>@NeedsPermission</code>。<br>像下面这样添加好你的注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RuntimePermissions</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line"><span class="comment">//do something...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>正好我们来看看 Permissions Dispatcher 所有的注解方法</p>
+<p><img src="https://s1.imgchr.com/2017/09/08/mhYUs.png" alt="permssions"></p>
+<h3 id="2-使用-NeedsPermission-来申请你的权限"><a href="#2-使用-NeedsPermission-来申请你的权限" class="headerlink" title="2 使用 @NeedsPermission 来申请你的权限"></a>2 使用 <code>@NeedsPermission</code> 来申请你的权限</h3><p>跟官方的方法一样，当你在 Android M （API 23）或者更高的版本中要使用 <code>危险权限</code>的时候，无论如何你先要在 <code>Manifest</code> 中声明你的权限。我们以拨打电话为例子，下面是申请拨打电话权限的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@NeedsPermission</span>(Manifest.permission.CALL_PHONE)</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">callPhoneNumber</span><span class="params">()</span> </span>&#123;</div><div class="line">        String phoneNumber = phoneNumberEt.getText().toString().trim();</div><div class="line">        Uri data = Uri.parse(<span class="string">"tel:"</span> + phoneNumber);</div><div class="line">        Intent intent = <span class="keyword">new</span> Intent(Intent.ACTION_CALL, data);</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            startActivity(intent);</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>如果你熟悉注解，应该知道如何申请多个权限。</p>
+<h3 id="3-OnShowRationale-向用户解释权限的宝贵机会"><a href="#3-OnShowRationale-向用户解释权限的宝贵机会" class="headerlink" title="3 @OnShowRationale 向用户解释权限的宝贵机会"></a>3 <code>@OnShowRationale</code> 向用户解释权限的宝贵机会</h3><p>当用户使用一个功能但是需要某项权限的时候，若用户没有授权在多次尝试之后如果用户点击了提示对话框中的 Don’t ask again ,之后开发者则失去了打开该权限的机会了，只能用户自行去设置中打开相应的权限。</p>
+<p>但是在这之前，你还有一个解释的机会来告诉用户为什么需要授权该权限。这里需要用到 <code>@OnShowRationale</code> 这个注解方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@OnShowRationale</span>(Manifest.permission.CALL_PHONE)</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">showRationaleForCallPhone</span><span class="params">(<span class="keyword">final</span> PermissionRequest request)</span> </span>&#123;</div><div class="line">        <span class="keyword">new</span> AlertDialog</div><div class="line">                .Builder(<span class="keyword">this</span>)</div><div class="line">                .setTitle(<span class="string">"Oops"</span>)</div><div class="line">                .setMessage(<span class="string">"grant call phone permission, if you want call"</span>)</div><div class="line">                .setPositiveButton(<span class="string">"ok"</span>, <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</div><div class="line">                    <span class="meta">@Override</span></div><div class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialogInterface, <span class="keyword">int</span> i)</span> </span>&#123;</div><div class="line">                        <span class="comment">// invoke default dialog for granting permission</span></div><div class="line">                        request.proceed();</div><div class="line">                    &#125;</div><div class="line">                &#125;)</div><div class="line">                .setNegativeButton(<span class="string">"cancle"</span>, <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</div><div class="line">                    <span class="meta">@Override</span></div><div class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialogInterface, <span class="keyword">int</span> i)</span> </span>&#123;</div><div class="line">                        <span class="comment">// invoke @OnPermissionDenied</span></div><div class="line">                        request.cancel();</div><div class="line">                    &#125;</div><div class="line">                &#125;)</div><div class="line">                .show();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>此段代码块中关键的两个方法： <code>proceed()</code>  和  <code>cancel()</code>。</p>
+<p><code>proceed()</code> ：此方法会调用系统请求权限的对话框<br><code>cancel()</code>：此方法会回调到 <code>@OnPermissionDenied</code>方法，即用户拒绝授权时候的处理方法。</p>
+<h3 id="4-关于Dispatcher-需要注意的问题"><a href="#4-关于Dispatcher-需要注意的问题" class="headerlink" title="4 关于Dispatcher 需要注意的问题"></a>4 关于Dispatcher 需要注意的问题</h3><p>在你写好了注解方法后跟官方方法一样，在申请权限之前首先需要检查是否 App 已经拥有该权限。官方使用的是 <code>ContextCompat.checkSelfPermission()</code> 这个方法，这里我们要使用  YourActivity + PermissionsDispatcher，我在后面给出的 Demo 例子中使用的是 MainActivity， 所以生成出来的是 MainActivityPermissionsDispatcher。</p>
+<p><strong>需要注意的是 Dispatcher 是编译生成的，当你写好上述的一些注解方法之后，此时点击 Android Studio 中的「Make Project」按钮会生成相应的 Dispatcher。</strong></p>
+<p><strong>所以在你第一次从 Github 上下载该 Demo 时，你需要按「Make Project」菜单按钮对项目进行编译才能让项目运行。</strong>这部分在 Demo 中都有注释说明，包括如何引入库。</p>
+<h3 id="5-Demo-项目地址"><a href="#5-Demo-项目地址" class="headerlink" title="5 Demo 项目地址"></a>5 Demo 项目地址</h3><p><a href="https://github.com/jngoogle/AndroidPermissionDemo" target="_blank" rel="external">AndroidPermissionDemo</a><br><br><br>have fun !</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
   <link itemprop="mainEntityOfPage" href="https://jngoogle.github.io/2017/07/10/开发RecyclerViewAdapter简化日常开发/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1013,318 +1183,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://jngoogle.github.io/2016/12/26/Retrofit-RxJava-从入门到跑路（Rxjava介绍）/">
-
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Jngoogle">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="Jngoogle">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="Jngoogle" src="">
-    </span>
-  </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/26/Retrofit-RxJava-从入门到跑路（Rxjava介绍）/" itemprop="url">
-                  Retrofit + RxJava 从入门到跑路（Rxjava介绍）
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-12-26T14:15:46+08:00">
-                2016-12-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>本文较长建议在电脑上阅读(文中除 RxJava + Retrofit 结合运用部分，其余代码示例来自 扔物线 博客)</p>
-</blockquote>
-<p>2016年也差不多要结束了，作为一个Android小白今年学到的东西回头来看发现还是太少了。给我印象最深的是 MVP设计模式、Retrofit以及RxJava。这篇文章就来讲一下Retrofit和RxJava。</p>
-<p>网上有很多这两者相关的资料但是结合起来的文章比较少，本着我们学习的目的是为了真正在工作项目中使用，所以决定写下这篇文章，本人由于工作经验较少文中出现错误了希望大家指出纠正。</p>
-<p>这里我要先分开讲两者然后再结合起来，只有分开弄清楚了才能在结合的时候运用自如。</p>
-<h1 id="​RxJava"><a href="#​RxJava" class="headerlink" title="​RxJava"></a>​RxJava</h1><p>首先强烈推荐 <a href="https://github.com/rengwuxian" target="_blank" rel="external">扔物线</a> 大大的这篇文章 <a href="http://gank.io/post/560e15be2dca930e00da1083" target="_blank" rel="external"> 《给 Android 开发者的 RxJava 详解》</a> 毫不夸张的说，如果真正吃透了这篇文章肯定是能够理解并使用RxJava了（这篇文章较长，系统的介绍了RxJava）。</p>
-<p>本人也是看了许多RxJava的文章最终发现了这篇文章才对RxJava形成了一个相对清楚的认识和理解。这里我就用我自己的理解在来梳理一下RxJava。</p>
-<h3 id="为什么要用Rxjava，以及什么场景下使用"><a href="#为什么要用Rxjava，以及什么场景下使用" class="headerlink" title="为什么要用Rxjava，以及什么场景下使用"></a>为什么要用Rxjava，以及什么场景下使用</h3><blockquote>
-<p>a library for composing asynchronous and event-based programs by using observable sequences.— from Rxjava github</p>
-<p>通过使用可观察序列来组成异步和基于事件的程序的库。</p>
-</blockquote>
-<p>异步 + 简洁  是Rxjava的关键词 。</p>
-<ul>
-<li>在需要处理异步的场景下使用：Rxjava的本质还是为了处理异步这件事。</li>
-<li>因为Rxjava处理逻辑的十分简洁 ，采用了链式的组织方式使得方便拼接来处理复杂的逻辑。</li>
-</ul>
-<h3 id="介绍观察者模式"><a href="#介绍观察者模式" class="headerlink" title="介绍观察者模式"></a>介绍观察者模式</h3><p>因为Rxjava在处理异步问题的时候采用的是 观察者模式。我们首先来熟悉一下观察者模式。其实对于Android日常开发中我们已经非常熟练的去使用了观察者模式了。我们都使用过Button，写过Button的点击事件。</p>
-<ul>
-<li><strong>名词解释</strong>（熟悉自行跳过直接看 <code>代码实现</code> ）</li>
-</ul>
-<p>所谓的 观察者模式 也可以称为 注册-订阅模式，就拿当下十分流行的直播来类比一下。比如我很喜欢B站的一位阿婆主（咦，好像暴露了什么）。她的每次直播我都想看，假设阿婆主直播的时间不是固定的，那我很有可能错过直播那我应该怎么做才能解决这个问题呢？</p>
-<p>两种方式：</p>
-<ol>
-<li>阿婆主每次直播的时候自己主动通知我（我觉得只有可能我在阿婆主的粉丝群里或者就我一个观众 233才可能这样）</li>
-<li>我在B站上关注了阿婆主。注意噢，这里的关注就是意味着订阅了，也就是说只要阿婆主有直播我就能收到通知。</li>
-</ol>
-<p>至此我想你应该懂了什么叫 注册-订阅（观察者）模式了，就是说只要我订阅了某个事件源（阿婆主开直播），当事件发生时我就能收到通知。好，我们接下来用一张表来更加清晰的看看这个模式的各个部分组成。</p>
-<table>
-<thead>
-<tr>
-<th>观察者（事件处理者）</th>
-<th style="text-align:left">被观察者（搞事者）</th>
-<th style="text-align:left">订阅</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>我</td>
-<td style="text-align:left">阿婆主</td>
-<td style="text-align:left">关注阿婆主这个动作</td>
-</tr>
-</tbody>
-</table>
-<p>现在的直播都是采用观察者模式的，好处就是在于无论阿婆主有多少粉丝只要你关注（订阅）了阿婆主，当阿婆主开直播了，这个事件消息能够发送给所有订阅了的粉丝。也就是不需要阿婆主每一个人去挨个通知了。</p>
-<p>我们现在再回到开头的提到的Button的这个事情。我们换一种说法可以把观察者模式理解成为监听模式。关注阿婆主之后就好像放置了一个监听器一直在监听阿婆主是否开播这个事件。一旦阿婆主开播事件被触发监听器就启动，然后执行相应的处理（观看直播 or 给阿婆主刷刷礼物）。</p>
-<p>所以看到这里写Android的小伙伴是不是觉得监听器有点熟悉，这个在Button上监听它被点击了的监听器不就是OnClickListener吗？当Button（被观察者 or 事件源）被点击之后，OnClickListener（观察者 or 事件处理者）就开始执行相应的操作，可能是跳转Activity也可能是弹出dialog等等。那这个监听器是在哪里订阅或者说关注了Button的一举一动的呢？当然就是在你经常写的 <code>btn.setOnClickListener()</code>的时候啦。在这个时候Button已经被OnClickListener所关注了。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Observer  观察者（事件处理者）</th>
-<th>Observable  被观察者（搞事者）</th>
-<th>Subscribe  订阅</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">我</td>
-<td>阿婆主</td>
-<td>关注阿婆主这个动作</td>
-</tr>
-<tr>
-<td style="text-align:left">OnClickListener   监听器</td>
-<td>Button   按钮</td>
-<td>setOnClickListener   绑定监听</td>
-</tr>
-</tbody>
-</table>
-<p>好的，啰嗦了这么多我为什么要介绍这个观察者模式呢？ 是因为我们Rxjava就是要处理异步问题的，异步一般来说那个不在主线程中的任务会比较耗时，为了防止ANR就会用到观察者模式。观察者不用时时刻刻去查看是否需要更新View了（如果那样好累的说）只要我关注了我需要关注的事件源（比如Button的点击事件）就可以在发生了特定事件的时候获得消息然后再更新View。</p>
-<ul>
-<li><p><strong>代码实现</strong>.</p>
-<p><strong>0 如何引入Rxjava</strong></p>
-<p>Example for Gradle:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// in your modules' build.gradle</span></div><div class="line">   <span class="comment">// Rxjava</span></div><div class="line">   compile <span class="string">'com.squareup.retrofit2:adapter-rxjava:2.0.2'</span></div><div class="line">   <span class="comment">// RXandroid</span></div><div class="line">   compile <span class="string">'io.reactivex:rxandroid:1.0.1'</span></div></pre></td></tr></table></figure>
-<p><strong>1 创建观察者（事件处理者）Observer</strong><br>观察者决定了当事件被触发了做出怎样的回应（在onNext 方法中处理）。  </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">Observer&lt;String&gt; observer = <span class="keyword">new</span> Observer&lt;String&gt;() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        Log.d(tag, <span class="string">"Item: "</span> + s);</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>&#123;</div><div class="line">        Log.d(tag, <span class="string">"Completed!"</span>);</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</div><div class="line">        Log.d(tag, <span class="string">"Error!"</span>);</div><div class="line">    &#125;&#125;;</div></pre></td></tr></table></figure>
-<p>​</p>
-<p>首先说明我们在实际的开发中一般创建观察者的时候使用的并不是Observer而是Subscriber。<br>Observer正如其字面的意思就是观察者，是一个接口里面的接口方法就是上面的三个方法，onNext()  onCompleted()  onError() 。而在实际开发中使用到的Subscriber是什么呢？<br>通过查看源码 public abstract class Subscriber<t> implements Observer<t>, Subscription ，原来Subscriber是一个抽象类它实现了 Observer 和 Sbuscription 这两个接口。</t></t></p>
-<ul>
-<li>Observer  — onNext()   onCompleted()  onError()</li>
-<li>subscription — unsubscribe()  isUnsubscribed()</li>
-</ul>
-</li>
-</ul>
-<p>其实Subscriber的用法跟Observer用法基本一致，相比于Observer多了一些重写方法,从表格中可以看出多了<code>unsubscribe()</code> 和 <code>isUnsubscribed()</code> 这两个方法。</p>
-<blockquote>
-<p>新增的这两个接口方法有着重要的意义，<code>unsubscribe()</code> 用于取消订阅。恩，既然我可以关注一个阿婆主当然也能够取消关注嘛。这个方法一般是在 onStop() 或者 onPause() 中去实现，取消订阅释放内存防止内存泄漏。阿婆主我取消对你关注了你不可能还死皮赖脸的缠着不放吧 233 。</p>
-</blockquote>
-<p>下面是 subscribe的创建（其实基本都是一样的）。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">Subscriber&lt;String&gt; subscriber = <span class="keyword">new</span> Subscriber&lt;String&gt;() &#123;</div><div class="line">    </div><div class="line"><span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        Log.d(tag, <span class="string">"Item: "</span> + s);</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    </div><div class="line"><span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>&#123;</div><div class="line">        Log.d(tag, <span class="string">"Completed!"</span>);</div><div class="line">    &#125;</div><div class="line"> </div><div class="line">    </div><div class="line"><span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</div><div class="line">        Log.d(tag, <span class="string">"Error!"</span>);</div><div class="line">    &#125;&#125;;</div></pre></td></tr></table></figure>
-<p><strong>2 创建被观察者（搞事者）Observable</strong></p>
-<p>Observable决定了发送什么事件以及何时发送时间即 what &amp; when。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Observable observable = Observable.create(<span class="keyword">new</span> Observable.OnSubscribe&lt;String&gt;() &#123;</div><div class="line">    </div><div class="line"><span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">(Subscriber&lt;? <span class="keyword">super</span> String&gt; subscriber)</span> </span>&#123;</div><div class="line">        subscriber.onNext(<span class="string">"Hello"</span>);</div><div class="line">        subscriber.onNext(<span class="string">"World"</span>);</div><div class="line">        subscriber.onCompleted();</div><div class="line">    &#125;&#125;);</div></pre></td></tr></table></figure>
-<p>我们从上面的简单例子可以看到不管是观察者还是被观察者处理的数据类型都是基本的String类型。在真实的项目开发中，我们在使用Rxjava + Retrofit 的时候要处理的类型往往是通过服务器给定的，通常事先是不知道的。这就需要我们在类型的地方使用泛型来处理，这里只是简单的示例。</p>
-<blockquote>
-<p>除了可以使用 create来创建一个被观察者还可以使用just 和 from， 而这些都被称作操作符，大家可以去<a href="https://mcxiaoke.gitbooks.io/rxdocs/content/Operators.html" target="_blank" rel="external">这里</a> 了解一下。</p>
-</blockquote>
-<p><strong>3 订阅Subscribe</strong></p>
-<p>只要在 Observable中订阅一下，将Observe与其连接起来就是完成订阅了。</p>
-<p>举例说明一下：</p>
-<p>由指定的一个 drawable 文件 id drawableRes 取得图片，并显示在 ImageView 中，并在出现异常的时候打印 Toast 报错：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> drawableRes = ...;</div><div class="line">ImageView imageView = ...;</div><div class="line">Observable.create(<span class="keyword">new</span> OnSubscribe&lt;Drawable&gt;() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">(Subscriber&lt;? <span class="keyword">super</span> Drawable&gt; subscriber)</span> </span>&#123;</div><div class="line">        Drawable drawable = getTheme().getDrawable(drawableRes));</div><div class="line">        subscriber.onNext(drawable);</div><div class="line">        subscriber.onCompleted();</div><div class="line">    &#125;</div><div class="line">&#125;).subscribe(<span class="keyword">new</span> Observer&lt;Drawable&gt;() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(Drawable drawable)</span> </span>&#123;</div><div class="line">        imageView.setImageDrawable(drawable);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCompleted</span><span class="params">()</span> </span>&#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Throwable e)</span> </span>&#123;</div><div class="line">        Toast.makeText(activity, <span class="string">"Error!"</span>, Toast.LENGTH_SHORT).show();</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>好，至此我们已经看到了整个观察者模式一个完整的流程了即创建 Observable 和 Observe 然后通过 Subscribe 连接两者即可。</p>
-<h3 id="真正的使用Rxjava"><a href="#真正的使用Rxjava" class="headerlink" title="真正的使用Rxjava"></a>真正的使用Rxjava</h3><p>在上面一节 介绍观察者模式中我们提出来完整的流程，我们也就基本的了解了Rxjava的工作流程，但是这不是Rxjava真正的使用方式！</p>
-<p>因为我们使用Rxjava的最初目的还是处理 异步问题。而目前为止所看到的所有代码都是在同一个线程中执行的，所以并不是Rxjava真正的使用方式。接下来，我们就要在不同的线程之间去使用Rxjava。</p>
-<p>为了在不同的线程中去使用Rxjava这就表明我们需要线程切换。我在A线程做一件事情，然后切换到B线程去做另外一件事情。刚好Rxjava提供了调度器，它可以用来切换线程。在Rxjava中使用Schedulars — 调度器来切换线程。该调度器已经默认提供了一些线程可供我们使用。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">方法名</th>
-<th style="text-align:left">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">immediate()</td>
-<td style="text-align:left">在当前线程中执行(缺省模式)</td>
-</tr>
-<tr>
-<td style="text-align:left">computation()</td>
-<td style="text-align:left">计算所使用的 Scheduler。这个计算指的是 CPU 密集型计算，即不会被 I/O 等操作限制性能的操作，例如图形的计算。这个 Scheduler 使用的固定的线程池，大小为 CPU 核数。不要把 I/O 操作放在 computation() 中，否则 I/O 操作的等待时间会浪费 CPU。</td>
-</tr>
-<tr>
-<td style="text-align:left">io()</td>
-<td style="text-align:left">I/O 操作（读写文件、读写数据库、网络信息交互等）所使用的 Scheduler。行为模式和 newThread() 差不多，区别在于 io() 的内部实现是是用一个无数量上限的线程池，可以重用空闲的线程，因此多数情况下 io() 比 newThread() 更有效率。不要把计算工作放在 io() 中，可以避免创建不必要的线程</td>
-</tr>
-<tr>
-<td style="text-align:left">newThread()</td>
-<td style="text-align:left">总是创建新的线程，并在新的线程中执行</td>
-</tr>
-<tr>
-<td style="text-align:left">mainThread()</td>
-<td style="text-align:left">Android中的主线程</td>
-</tr>
-</tbody>
-</table>
-<p>一般在实际的项目中用到最多的就是 io  newThread 以及 mainThread 这三个线程。在被观察者中 Observable提供了 两个方式分别是 <code>subscribeOn()</code>  和 <code>observeOn()</code>  来指定观察者和被观察者分别运行在哪个线程。</p>
-<p>举例说明：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">ServiceManager.getInstance()</div><div class="line">                        .getMovieService()</div><div class="line">                        .getMovie(<span class="number">0</span>, <span class="number">10</span>)</div><div class="line">                        .subscribeOn(Schedulers.newThread())</div><div class="line">                        .observeOn(AndroidSchedulers.mainThread())</div><div class="line">                        .subscribe(<span class="keyword">new</span> MySubscriber&lt;ApiResult&lt;Subject&gt;&gt;(context) &#123;</div><div class="line">                            <span class="meta">@Override</span></div><div class="line">                            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(ApiResult&lt;Subject&gt; subjectApiResult)</span> </span>&#123;</div><div class="line">                                <span class="comment">// do something</span></div><div class="line">                            &#125;</div><div class="line">                        &#125;);</div></pre></td></tr></table></figure>
-<p>从这个例子上我们可以看到  观察者是运行在新的线程上而  被观察者则是运行在主线程上。注意看在subscribeOn() 的前一句是获取电影的相关信息  getMovie()， 而获取这个信息需要的时间可能较长且不确定所以放在了另外一个新的线程中去执行你可以说实在后台线程执行。最后得到数据之后在再主线程中进行相应的处理。（这里已经是使用了Rxjava + Retrofit）</p>
-<h3 id="Rxjava是如此的灵活"><a href="#Rxjava是如此的灵活" class="headerlink" title="Rxjava是如此的灵活"></a>Rxjava是如此的灵活</h3><p>如果你能看到这里非常感谢，以上的内容都是介绍和解释了Rxjava 是如何处理异步问题。还记得文章最开头提到的Rxjava的两个关键词吗？ 异步 +  简洁， 这一节就要介绍Rxjava为什么相比于其他处理异步问题的方式为什么简洁、灵活。</p>
-<p>我们先来说说什么样的逻辑是容易被理解的。我个人认为直的逻辑，换句话说不需要考虑各种分支各种例外情况或者是多层关系的逻辑是容易被理解的（层级、依赖、分支较少的逻辑我认为就是直的逻辑）。好比路线，一条直路就能到达目的地当时给人的感觉是清晰、简单的。恰好，Rxjava就是这种链式的一条直的逻辑。依靠着众多 操作符 能够非常方便的实现拼积木的感觉（多了直接扔掉，少了直接加上就好不用考虑依赖、层级之间的关系）。</p>
-<p>举例演示一下（注意这里Rxjava和Retrofit结合在使用）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">ServiceManager.getInstance()</div><div class="line">                        .getMovieService()</div><div class="line">                        .getMovie(<span class="number">0</span>, <span class="number">10</span>)</div><div class="line">                        .flatMap(<span class="keyword">new</span> Func1&lt;ApiResult&lt;Subject&gt;, Observable&lt;Subject&gt;&gt;() &#123;</div><div class="line">                            <span class="meta">@Override</span></div><div class="line">                            <span class="function"><span class="keyword">public</span> Observable&lt;Subject&gt; <span class="title">call</span><span class="params">(ApiResult&lt;Subject&gt; subjectApiResult)</span> </span>&#123;</div><div class="line">                                <span class="keyword">return</span> Observable.from(subjectApiResult.getSubjects());</div><div class="line">                            &#125;</div><div class="line">                        &#125;)</div><div class="line">                        .map(<span class="keyword">new</span> Func1&lt;Subject, String&gt;() &#123;</div><div class="line">                            <span class="meta">@Override</span></div><div class="line">                            <span class="function"><span class="keyword">public</span> String <span class="title">call</span><span class="params">(Subject subject)</span> </span>&#123;</div><div class="line">                                <span class="keyword">return</span> subject.getTitle();</div><div class="line">                            &#125;</div><div class="line">                        &#125;)</div><div class="line">                        .subscribeOn(Schedulers.io())</div><div class="line">                        .observeOn(AndroidSchedulers.mainThread())</div><div class="line">                        .subscribe(<span class="keyword">new</span> MySubscriber&lt;String&gt;(context) &#123;</div><div class="line">                            <span class="meta">@Override</span></div><div class="line">                            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">                                apiResultTv.setText(s);</div><div class="line">                            &#125;</div><div class="line">                        &#125;);</div></pre></td></tr></table></figure>
-<p>ok,对于刚刚接触Rxjava的人可能一下子会觉得真正使用Rxjava是这么的麻烦，看着代码好像很多逻辑反而不清晰呢。其实这只是由于新接触Rxjava被表面的代码书写格式所吓到了而已。下面来分析一下这一串代码，首先介绍一下背景：</p>
-<p>我通过豆瓣电影API得到电影Top250 的相关信息，然后在手机上显示出来更新UI。</p>
-<blockquote>
-<p>豆瓣电影API可以在 <a href="https://developers.douban.com/wiki/?title=movie_v2" target="_blank" rel="external">这里查看</a> ，此处代码使用的是 榜单 <a href="https://developers.douban.com/wiki/?title=movie_v2#top250" target="_blank" rel="external">Top250</a> 这个接口(json返回结果较复杂请耐心分析)。在chrome浏览器中下载 postman 然后输入 <a href="https://api.douban.com/v2/movie/top250?start=0&amp;count=10" target="_blank" rel="external">https://api.douban.com/v2/movie/top250?start=0&amp;count=10</a> 查看json返回结果。</p>
-</blockquote>
-<p>我们来分析代码，首先通过getMovie() 得到了API所返回的json结果。这里根据提供的json结果返回的格式是</p>
-<p>Observable &lt; ApiResult&lt; Subject&gt;&gt; 是一个被观察者Observable （这里真实的场景就是我们通过网络就得到了被观察者而不是自己去创建），然后我们开始多次使用操作符来对这个最原始的 json返回结果进行剥离只留下我们需要的数据，比如这里我只需要榜单中电影的名字。</p>
-<p>第一次我们使用了 flatmap 得到了subject ， 然后我们再使用了 map 得到了String 这个对应着电影的名字。此时被观察者所发出的事件中的数据由 Observable &lt; ApiResult&lt; Subject&gt;&gt; 变成了 String 。至此被观察者的事情就处理好了事件源返回了我们想要的那一部分的数据。接下来分别使用 subscribeOn 和 observeOn 来分别指定这些任务应该运行在哪个线程。显然我们指定了观察者的任务处理在 io 线程， 被观察者是运行在主线程中的。最后的最后，我们进行了关注 - 订阅 告诉观察者如果你收到了被观察者的事件通知应该做点什么（setText 更新了UI）。</p>
-<p>好，如果你再结合上lambda 表达式的话，代码会看起来更清爽（但是个人不推荐）。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">ServiceManager.getInstance()</div><div class="line">                        .getMovieService()</div><div class="line">                        .getMovie(<span class="number">0</span>, <span class="number">10</span>)</div><div class="line">                        .flatMap(subjectApiResult -&gt; Observable.from(subjectApiResult.getSubjects()))</div><div class="line">                        .map(subject -&gt; subject.getTitle())</div><div class="line">                        .subscribeOn(Schedulers.io())</div><div class="line">                        .observeOn(AndroidSchedulers.mainThread())</div><div class="line">                        .subscribe(<span class="keyword">new</span> MySubscriber&lt;String&gt;(context) &#123;</div><div class="line">                            <span class="meta">@Override</span></div><div class="line">                            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">                                apiResultTv.setText(s);</div><div class="line">                            &#125;</div><div class="line">                        &#125;);</div></pre></td></tr></table></figure>
-<p>总结一下：其实整个这一串代码就是链式下来的一个直的逻辑。</p>
-<ul>
-<li>得到API返回结果                  getMovie()</li>
-<li>转化得到的结果为Subject   flatMap()</li>
-<li>转化得到的结果为String      map()</li>
-<li>指定线程                                observeOn()  subscribeOn()</li>
-<li>订阅                                        subscribe()</li>
-</ul>
-<p>Rxjava 之所以说它灵活是因为在转化的过程中你想怎么转化都是可以的，它可以通过多种操作符来适应你的各种筛选要求。之后会用一篇文章介绍一下常用的一些操作符。</p>
-<hr>
-<h3 id="​后记"><a href="#​后记" class="headerlink" title="​后记"></a>​后记</h3><p>终于告一段落了，Rxjava 的基本介绍就这么多了，希望这边文章能给你们一点点帮助。本文中除了 Rxjava 与 Retrofit结合的代码是原创，剩下的示例代码来自 扔物线。还有如果想了解一下 lambda 表达式的同学可以去 <a href="https://loshine.me/2016/03/30/use-lambda-in-android/" target="_blank" rel="external">这里学习</a></p>
-<h3 id="特别感谢"><a href="#特别感谢" class="headerlink" title="特别感谢"></a>特别感谢</h3><ul>
-<li><p><a href="https://loshine.me/" target="_blank" rel="external">饭窝</a></p>
-</li>
-<li><p><a href="https://github.com/rengwuxian" target="_blank" rel="external">扔物线</a></p>
-<p>​</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1372,7 +1230,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1390,7 +1248,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

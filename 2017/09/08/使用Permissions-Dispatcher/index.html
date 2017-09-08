@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="设计模式,单例模式," />
+  <meta name="keywords" content="permission manage,permissions Dispatcher," />
 
 
 
@@ -84,25 +84,24 @@
 
 
 
-<meta name="description" content="在上一篇中《创建型模式之单例模式》中提到的双重检查锁定以及 IoDH 这两种方式我们有必要好好的去深入探究一下。
-
-双重检查锁定中的 volatile为什么在双重检查锁定中需要使用 volatile 这个关键字？我们先来看看下面代码的问题就能明白它的作用了。
-12345678910111213141516public class SingleInstance &amp;#123;  private sta">
+<meta name="description" content="这里是原项目地址 Permissions Dispatcher github link
+引入库1 添加 maven 支持在你的 Project 这一层级下添加如下代码，提供 maven 支持。
+12345678allprojects &amp;#123;    repositories &amp;#123;        google()        jcenter()//        TODO 「 how">
 <meta property="og:type" content="article">
-<meta property="og:title" content="双重检查锁定以及IoDH探究">
-<meta property="og:url" content="https://jngoogle.github.io/2017/07/01/双重检查锁定以及IoDH探究/index.html">
+<meta property="og:title" content="使用Permissions Dispatcher">
+<meta property="og:url" content="https://jngoogle.github.io/2017/09/08/使用Permissions-Dispatcher/index.html">
 <meta property="og:site_name" content="Jngoogle">
-<meta property="og:description" content="在上一篇中《创建型模式之单例模式》中提到的双重检查锁定以及 IoDH 这两种方式我们有必要好好的去深入探究一下。
-
-双重检查锁定中的 volatile为什么在双重检查锁定中需要使用 volatile 这个关键字？我们先来看看下面代码的问题就能明白它的作用了。
-12345678910111213141516public class SingleInstance &amp;#123;  private sta">
-<meta property="og:updated_time" content="2017-07-10T07:23:06.145Z">
+<meta property="og:description" content="这里是原项目地址 Permissions Dispatcher github link
+引入库1 添加 maven 支持在你的 Project 这一层级下添加如下代码，提供 maven 支持。
+12345678allprojects &amp;#123;    repositories &amp;#123;        google()        jcenter()//        TODO 「 how">
+<meta property="og:image" content="https://s1.imgchr.com/2017/09/08/mhYUs.png">
+<meta property="og:updated_time" content="2017-09-08T03:13:43.495Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="双重检查锁定以及IoDH探究">
-<meta name="twitter:description" content="在上一篇中《创建型模式之单例模式》中提到的双重检查锁定以及 IoDH 这两种方式我们有必要好好的去深入探究一下。
-
-双重检查锁定中的 volatile为什么在双重检查锁定中需要使用 volatile 这个关键字？我们先来看看下面代码的问题就能明白它的作用了。
-12345678910111213141516public class SingleInstance &amp;#123;  private sta">
+<meta name="twitter:title" content="使用Permissions Dispatcher">
+<meta name="twitter:description" content="这里是原项目地址 Permissions Dispatcher github link
+引入库1 添加 maven 支持在你的 Project 这一层级下添加如下代码，提供 maven 支持。
+12345678allprojects &amp;#123;    repositories &amp;#123;        google()        jcenter()//        TODO 「 how">
+<meta name="twitter:image" content="https://s1.imgchr.com/2017/09/08/mhYUs.png">
 
 
 
@@ -130,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://jngoogle.github.io/2017/07/01/双重检查锁定以及IoDH探究/"/>
+  <link rel="canonical" href="https://jngoogle.github.io/2017/09/08/使用Permissions-Dispatcher/"/>
 
 
 
 
 
-  <title> 双重检查锁定以及IoDH探究 | Jngoogle </title>
+  <title> 使用Permissions Dispatcher | Jngoogle </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="default">
@@ -292,7 +291,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://jngoogle.github.io/2017/07/01/双重检查锁定以及IoDH探究/">
+  <link itemprop="mainEntityOfPage" href="https://jngoogle.github.io/2017/09/08/使用Permissions-Dispatcher/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Jngoogle">
@@ -316,7 +315,7 @@
             
             
               
-                双重检查锁定以及IoDH探究
+                使用Permissions Dispatcher
               
             
           </h1>
@@ -331,8 +330,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-01T14:36:08+08:00">
-                2017-07-01
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-08T10:48:20+08:00">
+                2017-09-08
               </time>
             
 
@@ -354,8 +353,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/设计模式/" itemprop="url" rel="index">
-                    <span itemprop="name">设计模式</span>
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
                   </a>
                 </span>
 
@@ -389,30 +388,36 @@
       
 
       
-        <p>在上一篇中《创建型模式之单例模式》中提到的双重检查锁定以及 IoDH 这两种方式我们有必要好好的去深入探究一下。</p>
+        <p>这里是原项目地址 <a href="https://github.com/hotchemi/PermissionsDispatcher" target="_blank" rel="external">Permissions Dispatcher github link</a></p>
+<h1 id="引入库"><a href="#引入库" class="headerlink" title="引入库"></a>引入库</h1><h3 id="1-添加-maven-支持"><a href="#1-添加-maven-支持" class="headerlink" title="1 添加 maven 支持"></a>1 添加 maven 支持</h3><p>在你的 Project 这一层级下添加如下代码，提供 maven 支持。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">allprojects &#123;</div><div class="line">    repositories &#123;</div><div class="line">        google()</div><div class="line">        jcenter()</div><div class="line"><span class="comment">//        TODO 「 how to add PermissionsDispactcher 」 1 - add maven repo dependence</span></div><div class="line">        maven &#123; url <span class="string">'http://oss.jfrog.org/artifactory/oss-snapshot-local/'</span> &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-添加项目依赖"><a href="#2-添加项目依赖" class="headerlink" title="2 添加项目依赖"></a>2 添加项目依赖</h3><p>在你的 Module 这一层级中添加如下代码，提供项目依赖：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">dependencies &#123;</div><div class="line">    <span class="function">implementation <span class="title">fileTree</span><span class="params">(dir: <span class="string">'libs'</span>, include: [<span class="string">'*.jar'</span>])</span></span></div><div class="line">    implementation 'com.android.support:appcompat-v7:26.0.0'</div><div class="line">    </div><div class="line"><span class="comment">//  TODO 「 how to add PermissionsDispactcher 」 2 - add dependece in module build.gradle</span></div><div class="line">    <span class="title">compile</span><span class="params">(<span class="string">"com.github.hotchemi:permissionsdispatcher:2.4.0"</span>)</span> &#123;</div><div class="line"><span class="comment">//      if you don't use android.app.Fragment you can exclude support for them</span></div><div class="line">        exclude <span class="keyword">module</span>: <span class="string">"support-v13"</span></div><div class="line">    &#125;</div><div class="line">    annotationProcessor <span class="string">"com.github.hotchemi:permissionsdispatcher-processor:2.4.0"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> <code>com.github.hotchemi:permissionsdispatcher:${latest.version}</code> 若想要使用最新版本参考文章开头的原项目。</p>
 <p><br></p>
-<h3 id="双重检查锁定中的-volatile"><a href="#双重检查锁定中的-volatile" class="headerlink" title="双重检查锁定中的 volatile"></a>双重检查锁定中的 volatile</h3><p>为什么在双重检查锁定中需要使用 volatile 这个关键字？我们先来看看下面代码的问题就能明白它的作用了。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SingleInstance</span> </span>&#123;</div><div class="line">  <span class="keyword">private</span> <span class="keyword">static</span> SingleInstance sInstance = <span class="keyword">null</span>;</div><div class="line">  <span class="function"><span class="keyword">private</span> <span class="title">SingleInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SingleInstance <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="keyword">if</span> (<span class="keyword">null</span> == sInstance) &#123;</div><div class="line">          <span class="keyword">synchronized</span> (SingleInstance.class) &#123;</div><div class="line">              <span class="keyword">if</span> (<span class="keyword">null</span> == sInstance) &#123;</div><div class="line">                  sInstance = <span class="keyword">new</span> SingleInstance();<span class="comment">//问题在这里出现</span></div><div class="line">              &#125;</div><div class="line">          &#125;</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">return</span> sInstance;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这是一段没有使用 volatile 的代码块。我们来看看如果没有使用 volatile 的双重检查锁定会出现什么问题。</p>
-<blockquote>
-<p>假设现在有线程 A  和  B，同时要调用上面的代码块。</p>
-<p>现在假设 A 线程先调用了上面的代码获得线程锁 synchronized。B 线程则停留在外层的 <code>null ==sInstance</code>  判断处，去检查有没有实例，如果 A 线程已经创建好了实例此时 B 线程直接返回该实例即可；若没有实例则 B 获取线程锁创建一个实例。</p>
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><blockquote>
+<ul>
+<li>希望你已经熟悉如何使用官方的方式来实现权限管理，若需要学习你可以参考官网教程 <a href="https://developer.android.com/about/versions/marshmallow/android-6.0-changes.html?hl=zh-cn" target="_blank" rel="external">Link</a></li>
+<li>Permissions Dispatcher 采用注解的方式来简化权限管理</li>
+<li>除此之外也建议你去了解一下其他的库</li>
+</ul>
 </blockquote>
-<p>看起来上面的逻辑很正常没有问题，但是实际情况是：在 A 线程创建实例的时候，也就是我们代码的第10行，真正创建实例的过程可能并不是我们所想当然的那么简单。</p>
-<p><br></p>
-<p>在 new 一个实例的时候在 A  线程中经历了如下的操作：</p>
-<ol>
-<li>分配内存空间</li>
-<li>初始化对象</li>
-<li>设置对象指向分配的内存空间地址</li>
-</ol>
-<p>但是实际情况确实，在上面的三个步骤中其实第二步与第三步是可能对调顺序的。也就是说可能执行的顺序是132，这样的顺序。<em>你可以参考  <a href="https://www.ibm.com/developerworks/java/library/j-dcl/index.html" target="_blank" rel="external">Double-checked locking and the Singleton pattern</a> 中 Out-of-order writes 的部分。</em></p>
-<blockquote>
-<p>根据 java 语言规范，所有线程在执行java程序时必须要遵守 intra-thread semantics。intra-thread semantics保证重排序不会改变单线程内的程序执行结果。换句话来说，intra-thread semantics允许那些在单线程内，不会改变单线程程序执行结果的重排序。上面三行伪代码的2和3之间虽然被重排序了，但这个重排序并不会违反intra-thread semantics。这个重排序在没有改变单线程程序的执行结果的前提下，可以提高程序的执行性能。</p>
-</blockquote>
-<p><br></p>
-<p><strong>如果顺序变成了132会导致什么结果呢？</strong></p>
-<p><br></p>
+<h3 id="1-为你需要管理权限的-Activity-或-Fragment-添加-RuntimePermissions"><a href="#1-为你需要管理权限的-Activity-或-Fragment-添加-RuntimePermissions" class="headerlink" title="1 为你需要管理权限的 Activity 或 Fragment 添加 @RuntimePermissions"></a>1 为你需要管理权限的 Activity 或 Fragment 添加 <code>@RuntimePermissions</code></h3><p><code>@RuntimePermissions</code> 这个注解是必须的，此外还有一个申请权限的注解方法也是必须的 <code>@NeedsPermission</code>。<br>像下面这样添加好你的注解：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RuntimePermissions</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line"><span class="comment">//do something...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>正好我们来看看 Permissions Dispatcher 所有的注解方法</p>
+<p><img src="https://s1.imgchr.com/2017/09/08/mhYUs.png" alt="permssions"></p>
+<h3 id="2-使用-NeedsPermission-来申请你的权限"><a href="#2-使用-NeedsPermission-来申请你的权限" class="headerlink" title="2 使用 @NeedsPermission 来申请你的权限"></a>2 使用 <code>@NeedsPermission</code> 来申请你的权限</h3><p>跟官方的方法一样，当你在 Android M （API 23）或者更高的版本中要使用 <code>危险权限</code>的时候，无论如何你先要在 <code>Manifest</code> 中声明你的权限。我们以拨打电话为例子，下面是申请拨打电话权限的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@NeedsPermission</span>(Manifest.permission.CALL_PHONE)</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">callPhoneNumber</span><span class="params">()</span> </span>&#123;</div><div class="line">        String phoneNumber = phoneNumberEt.getText().toString().trim();</div><div class="line">        Uri data = Uri.parse(<span class="string">"tel:"</span> + phoneNumber);</div><div class="line">        Intent intent = <span class="keyword">new</span> Intent(Intent.ACTION_CALL, data);</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            startActivity(intent);</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>如果你熟悉注解，应该知道如何申请多个权限。</p>
+<h3 id="3-OnShowRationale-向用户解释权限的宝贵机会"><a href="#3-OnShowRationale-向用户解释权限的宝贵机会" class="headerlink" title="3 @OnShowRationale 向用户解释权限的宝贵机会"></a>3 <code>@OnShowRationale</code> 向用户解释权限的宝贵机会</h3><p>当用户使用一个功能但是需要某项权限的时候，若用户没有授权在多次尝试之后如果用户点击了提示对话框中的 Don’t ask again ,之后开发者则失去了打开该权限的机会了，只能用户自行去设置中打开相应的权限。</p>
+<p>但是在这之前，你还有一个解释的机会来告诉用户为什么需要授权该权限。这里需要用到 <code>@OnShowRationale</code> 这个注解方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@OnShowRationale</span>(Manifest.permission.CALL_PHONE)</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">showRationaleForCallPhone</span><span class="params">(<span class="keyword">final</span> PermissionRequest request)</span> </span>&#123;</div><div class="line">        <span class="keyword">new</span> AlertDialog</div><div class="line">                .Builder(<span class="keyword">this</span>)</div><div class="line">                .setTitle(<span class="string">"Oops"</span>)</div><div class="line">                .setMessage(<span class="string">"grant call phone permission, if you want call"</span>)</div><div class="line">                .setPositiveButton(<span class="string">"ok"</span>, <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</div><div class="line">                    <span class="meta">@Override</span></div><div class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialogInterface, <span class="keyword">int</span> i)</span> </span>&#123;</div><div class="line">                        <span class="comment">// invoke default dialog for granting permission</span></div><div class="line">                        request.proceed();</div><div class="line">                    &#125;</div><div class="line">                &#125;)</div><div class="line">                .setNegativeButton(<span class="string">"cancle"</span>, <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</div><div class="line">                    <span class="meta">@Override</span></div><div class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialogInterface, <span class="keyword">int</span> i)</span> </span>&#123;</div><div class="line">                        <span class="comment">// invoke @OnPermissionDenied</span></div><div class="line">                        request.cancel();</div><div class="line">                    &#125;</div><div class="line">                &#125;)</div><div class="line">                .show();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>此段代码块中关键的两个方法： <code>proceed()</code>  和  <code>cancel()</code>。</p>
+<p><code>proceed()</code> ：此方法会调用系统请求权限的对话框<br><code>cancel()</code>：此方法会回调到 <code>@OnPermissionDenied</code>方法，即用户拒绝授权时候的处理方法。</p>
+<h3 id="4-关于Dispatcher-需要注意的问题"><a href="#4-关于Dispatcher-需要注意的问题" class="headerlink" title="4 关于Dispatcher 需要注意的问题"></a>4 关于Dispatcher 需要注意的问题</h3><p>在你写好了注解方法后跟官方方法一样，在申请权限之前首先需要检查是否 App 已经拥有该权限。官方使用的是 <code>ContextCompat.checkSelfPermission()</code> 这个方法，这里我们要使用  YourActivity + PermissionsDispatcher，我在后面给出的 Demo 例子中使用的是 MainActivity， 所以生成出来的是 MainActivityPermissionsDispatcher。</p>
+<p><strong>需要注意的是 Dispatcher 是编译生成的，当你写好上述的一些注解方法之后，此时点击 Android Studio 中的「Make Project」按钮会生成相应的 Dispatcher。</strong></p>
+<p><strong>所以在你第一次从 Github 上下载该 Demo 时，你需要按「Make Project」菜单按钮对项目进行编译才能让项目运行。</strong>这部分在 Demo 中都有注释说明，包括如何引入库。</p>
+<h3 id="5-Demo-项目地址"><a href="#5-Demo-项目地址" class="headerlink" title="5 Demo 项目地址"></a>5 Demo 项目地址</h3><p><a href="https://github.com/jngoogle/AndroidPermissionDemo" target="_blank" rel="external">AndroidPermissionDemo</a><br><br><br>have fun !</p>
 
       
     </div>
@@ -452,9 +457,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/设计模式/" rel="tag"># 设计模式</a>
+            <a href="/tags/permission-manage/" rel="tag"># permission manage</a>
           
-            <a href="/tags/单例模式/" rel="tag"># 单例模式</a>
+            <a href="/tags/permissions-Dispatcher/" rel="tag"># permissions Dispatcher</a>
           
         </div>
       
@@ -463,8 +468,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/29/创建型模式之单例模式/" rel="next" title="创建型模式之单例模式">
-                <i class="fa fa-chevron-left"></i> 创建型模式之单例模式
+              <a href="/2017/07/10/开发RecyclerViewAdapter简化日常开发/" rel="next" title="通用的RecyclerViewAdapter开发">
+                <i class="fa fa-chevron-left"></i> 通用的RecyclerViewAdapter开发
               </a>
             
           </div>
@@ -472,10 +477,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/10/开发RecyclerViewAdapter简化日常开发/" rel="prev" title="通用的RecyclerViewAdapter开发">
-                通用的RecyclerViewAdapter开发 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -621,7 +622,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#双重检查锁定中的-volatile"><span class="nav-number">1.</span> <span class="nav-text">双重检查锁定中的 volatile</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引入库"><span class="nav-number">1.</span> <span class="nav-text">引入库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-添加-maven-支持"><span class="nav-number">1.0.1.</span> <span class="nav-text">1 添加 maven 支持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-添加项目依赖"><span class="nav-number">1.0.2.</span> <span class="nav-text">2 添加项目依赖</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用方法"><span class="nav-number">2.</span> <span class="nav-text">使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-为你需要管理权限的-Activity-或-Fragment-添加-RuntimePermissions"><span class="nav-number">2.0.1.</span> <span class="nav-text">1 为你需要管理权限的 Activity 或 Fragment 添加 @RuntimePermissions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-使用-NeedsPermission-来申请你的权限"><span class="nav-number">2.0.2.</span> <span class="nav-text">2 使用 @NeedsPermission 来申请你的权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-OnShowRationale-向用户解释权限的宝贵机会"><span class="nav-number">2.0.3.</span> <span class="nav-text">3 @OnShowRationale 向用户解释权限的宝贵机会</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-关于Dispatcher-需要注意的问题"><span class="nav-number">2.0.4.</span> <span class="nav-text">4 关于Dispatcher 需要注意的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Demo-项目地址"><span class="nav-number">2.0.5.</span> <span class="nav-text">5 Demo 项目地址</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
